@@ -34,6 +34,7 @@ export class StorageService {
     //신규 항목 추가 p.162
     addItem(item){
         const storageData = this.#getStorageData();
+        item.id = this.#lastId;
         storageData[this.#lastId++] = item;
         this.#saveStorageData(storageData);
     }
