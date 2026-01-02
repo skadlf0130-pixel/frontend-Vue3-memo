@@ -22,7 +22,7 @@
         </main>
 
         <footer class="pt-4 mt-4 border-top">
-            $copy; 2024. Memo. All rigths reseved.
+            $copy; 2026. Memo. All rigths reseved.
         </footer>
     </div>
 </div>

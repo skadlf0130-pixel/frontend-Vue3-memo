@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-
+import form from '@/views/form.vue'
+import Form from '@/views/form.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -9,6 +10,16 @@ const router = createRouter({
       name: 'home',
       component: Home,
     },
+    {
+      path:'/memos/add',
+      component: Form
+
+    },
+    {
+      path:'/memos/:id',//path variable(경로 변수)
+      component: Form
+
+    }
   ],
 })
 
