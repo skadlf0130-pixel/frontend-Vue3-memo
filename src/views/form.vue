@@ -3,8 +3,8 @@ import { reactive, onMounted } from 'vue';
 import storageService  from '@/services/StorageService';
 import { useRoute, useRouter } from 'vue-router';
 
-const router= useRouter();
-const route = useRoute(); //라우터 객체 주소값 얻기
+const router= useRouter();//라우터 객체 주소값 얻기(주소값이동)
+const route = useRoute(); //라우터 객체 주소값 얻기(pathvariable 값 가져오기)
 
 const state = reactive({
     memo: {        
@@ -13,8 +13,15 @@ const state = reactive({
     }
 });
 const submit = () => {
-    storageService.addItem(state.memo);
-    alert('저장하였습니다.');
+    //storageService.addItem(state.memo);
+    if(route.params.id){
+        storageService.setItem(state.memo);
+        alert('수정하였습니다.');
+    } else{
+        storageService.addItem(state.memo)
+        alert('저장하였습니다.')
+    }
+    
     //라우팅 처리 (path: '/')로 주소값 이동 (화면 전환)
     router.push({
         path: '/'
@@ -28,15 +35,7 @@ onMounted(()=> {
     }
 });
 
-const update = () => {
-    if (!route.params.id) return;
-    if (confirm("수정된 내용을 저장할까요?")) {
-    const id = Number(route.params.id);
-    storageService.updateItem(id, state.memo);
-    alert("수정되었습니다.");
-    router.push({ path: '/' });
-    }
-};
+
 </script>
 
 <template>
@@ -49,8 +48,9 @@ const update = () => {
         <label for="content" class="form-label">내용</label>
         <textarea id="content" v-model="state.memo.content"></textarea>
     </div>
-    <button type= "submit" class="btn btn-primary w-50 py-3">저장</button>
-    <button type="button" class="btn btn-outline-secondary w-50 py-3"   @click="update">수정</button>
+    <button type= "submit" class="btn btn-primary w-50 py-3">{{route.params.id ? '수정':'저장'}}</button>
+
+
 </form>
 </template>
 

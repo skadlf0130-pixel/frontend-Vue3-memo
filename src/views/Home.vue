@@ -10,7 +10,7 @@ const state = reactive({
 onMounted( () => state.memos = storageService.getItems() );
 const remove = id => {
     console.log('id:', id);
-    if(!confirm('삭제하시겠습니까?')) {
+    if(!confirm('삭제하시겠습니까?')) {//confirm은 리턴메서드
     return;
     }
     storageService.delItem(id);
@@ -22,12 +22,13 @@ const remove = id => {
 <template>
 <div class="memo-list">
     <router-link class="item" v-for="item in state.memos" :to="`/memos/${item.id}`" :key="item.id">
-   <div class="d-flex pt-3">
+    <div class="d-flex pt-3">
         <div class="pb-3 mb-0 w-100">
         <div class="d-flex justify-content-between">
             <b>{{ item.title }}</b>
             <div>
-            <!-- click.prevent는 클릭 이벤트 버블링 막는거다. -->
+            <!-- click.prevent는 클릭 이벤트 버블링 막는거다.
+                버블링이란 자식요소에서 발생한 이벤트가 부모, 조상요소에 계속 전달(전파)되는 것-->
             <span role="button" @click.prevent="remove(item.id)">삭제</span>
             </div>
         </div>
